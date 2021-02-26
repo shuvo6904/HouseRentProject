@@ -1,10 +1,14 @@
 package com.example.houserentproject;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -13,6 +17,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle toggle;
+
     RecyclerView mRecyclerView;
     List<HomePageData> myHomePageDataList;
     HomePageData mhomePageData;
@@ -20,12 +27,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
-
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setTitle("Home Page");
+
+        drawerLayout = findViewById(R.id.drawerId);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewId);
 
@@ -48,5 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
         MyAdapter myAdapter = new MyAdapter(MainActivity.this, myHomePageDataList);
         mRecyclerView.setAdapter(myAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
