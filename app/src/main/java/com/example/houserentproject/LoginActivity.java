@@ -20,4 +20,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
         finish();
     }
+
+    public void buttonLogin(View view) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+    }
 }

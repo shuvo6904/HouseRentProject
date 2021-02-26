@@ -16,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Signup Form");
     }
 
-    public void buttonAlreadyRegistered(View view) {
+    public void tvAlreadyRegistered(View view) {
 
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
